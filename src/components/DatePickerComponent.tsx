@@ -1,8 +1,6 @@
 import {convertDateToUnixTime, convertUnixTimeToDate} from "../util/convertDate";
-import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
-import {TextField} from "@mui/material";
-import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import styled from "styled-components";
+import DateTimePicker from 'react-datetime-picker';
 
 type Props = {
     value: number | undefined
@@ -26,14 +24,8 @@ export const DatePickerComponent = (props: Props) => {
 
     return (
         <Root>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DateTimePicker
-                    renderInput={(props) => <TextField {...props} />}
-                    label={label}
-                    value={date}
-                    onChange={handleChange}
-                />
-            </LocalizationProvider>
+            <Label>{label}</Label>
+            <DateTimePicker onChange={handleChange} value={date}  />
         </Root>
     )
 }
@@ -42,4 +34,7 @@ export const DatePickerComponent = (props: Props) => {
 const Root = styled.div`
   padding-left: 20px;
   padding-right: 20px;
+`
+
+const Label = styled.span`
 `

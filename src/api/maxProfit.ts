@@ -3,7 +3,7 @@ import {parseVercelResponse} from "../util/parseVercelResponse";
 
 export const maxProfit = async (params: MaxProfitInput) => {
     const apiUrl = process.env.REACT_APP_API_URL
-    const isVercel = process.env.IS_VERCEL
+    const isVercel = process.env.REACT_APP_IS_VERCEL
 
     if (!apiUrl) {
         throw new Error('API URL is not specified in env variables')

@@ -13,27 +13,22 @@ export const maxProfit = async (params: MaxProfitInput) => {
     }
     const url = `${apiUrl}/maxprofit?${paramsArray.join('&')}`
 
-    let response
+    let error
     try {
-        response = await fetch(url, { mode: 'no-cors'})
+        const response = await fetch(url, { mode: 'no-cors'})
         if (response.ok) {
-            const bestProfit = await response.json() as MaxProfitOutput
-            return bestProfit
+            const parsed = await response.json()
+            if (parsed.profit) {
+                const bestProfit = parsed as MaxProfitOutput
+                return bestProfit
+            }
+            error = parsed.message
         }
     } catch (err) {
         throw new Error('ERRRRROR '+err)
     }
-    console.log('----response.statusText', response.statusText, response.status)
-    let error
-    if (response) {
-        try {
-            error = await response.json()
-        } catch(err) {
-            throw new Error('ERRRRROR2 '+err)
-        }
-    }
     if (!error) {
-        error = 'unknown error'
+        error = 'Unknown error'
     }
     throw new Error(error)
 }

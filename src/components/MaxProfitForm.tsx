@@ -5,6 +5,8 @@ import {convertDateToUnixTime} from "../util/convertDate";
 import {TextField} from "@mui/material";
 import {SubmitButton} from "./SubmitButton";
 import {maxProfit} from "../api/maxProfit";
+import {MaxProfitOutput} from "../types/maxProfit";
+import {BestProfit} from "./BestProfit";
 
 export const MaxProfitForm = () => {
     const nowTime = convertDateToUnixTime(new Date())
@@ -13,6 +15,7 @@ export const MaxProfitForm = () => {
     const [priceLimit, setPriceLimit] = useState<number | undefined>()
     const [error, setError] = useState<string>('')
     const [isSubmitting, setSubmitting] = useState<boolean>(false)
+    const [bestProfit, setBestProfit] = useState<MaxProfitOutput | undefined>()
 
     const handleChangeStart = (value: number | undefined) => {
         setStart(value)
@@ -48,8 +51,10 @@ export const MaxProfitForm = () => {
             return
         }
         setSubmitting(true)
+        setBestProfit(undefined)
         try {
-            const res = await maxProfit({start, end, priceLimit})
+            const bestProfit = await maxProfit({start, end, priceLimit})
+            setBestProfit(bestProfit)
         } catch (err) {
             console.error(err)
         }
@@ -63,6 +68,13 @@ export const MaxProfitForm = () => {
         )
     }
 
+    let jsxBestProfit
+    if (bestProfit) {
+        jsxBestProfit = (
+            <BestProfit bestProfit={bestProfit} />
+        )
+    }
+
     return (
         <Root>
             <Title>Calculate Max Profit</Title>
@@ -72,16 +84,17 @@ export const MaxProfitForm = () => {
                     <DatePickerComponent
                         onChange={handleChangeStart}
                         value={start}
-                        label={'*Start'}
+                        label={'*Start:'}
                     />
                     <DatePickerComponent
                         onChange={handleChangeEnd}
                         value={end}
-                        label={'*End'}
+                        label={'*End:'}
                     />
                 </Dates>
                 {jsxError}
                 <TextField label={'Buy limit'} value={priceLimit || ''} onChange={handleChangePriceLimit} />
+                {jsxBestProfit}
             </MainForm>
             <SubmitButton onClick={handleSubmit} disabled={isSubmitting} >Submit</SubmitButton>
         </Root>

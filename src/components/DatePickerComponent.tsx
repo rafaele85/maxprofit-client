@@ -37,4 +37,5 @@ const Root = styled.div`
 `
 
 const Label = styled.span`
+  padding-right: 5px;
 `

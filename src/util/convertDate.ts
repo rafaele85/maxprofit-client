@@ -11,3 +11,12 @@ export const convertUnixTimeToDate = (time: number | undefined) => {
     }
     return undefined
 }
+
+
+export const convertUnixTimeToDateString = (time: number | undefined) => {
+    const dt = convertUnixTimeToDate(time)
+    if (dt) {
+        return dt.toLocaleString()
+    }
+    return ''
+}

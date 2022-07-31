@@ -13,7 +13,7 @@ export const maxProfit = async (params: MaxProfitInput) => {
     }
     const url = `${apiUrl}/maxprofit?${paramsArray.join('&')}`
 
-    const response = await fetch(url)
+    const response = await fetch(url, { mode: 'no-cors'})
     if (response.ok) {
         const bestProfit = await response.json() as MaxProfitOutput
         return bestProfit

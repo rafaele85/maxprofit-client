@@ -22,7 +22,9 @@ export const maxProfit = async (params: MaxProfitInput) => {
                 const bestProfit = parsed as MaxProfitOutput
                 return bestProfit
             }
-            error = parsed.message
+        } else {
+            const text = await response.text()
+            console.log('---text=', text, response.statusText )
         }
     } catch (err) {
         throw new Error('ERRRRROR '+err)

@@ -1,7 +1,10 @@
 import {MaxProfitInput, MaxProfitOutput} from "../types/maxProfit";
+import {parseVercelResponse} from "../util/parseVercelResponse";
 
 export const maxProfit = async (params: MaxProfitInput) => {
     const apiUrl = process.env.REACT_APP_API_URL
+    const isVercel = process.env.IS_VERCEL
+
     if (!apiUrl) {
         throw new Error('API URL is not specified in env variables')
     }
@@ -19,7 +22,12 @@ export const maxProfit = async (params: MaxProfitInput) => {
         if (response.ok) {
             const parsed = await response.json()
             if (parsed.profit) {
-                const bestProfit = parsed as MaxProfitOutput
+                let bestProfit: MaxProfitOutput | undefined
+                if (isVercel) {
+                    bestProfit = parseVercelResponse(parsed)
+                } else {
+                    bestProfit = parsed as MaxProfitOutput
+                }
                 return bestProfit
             }
         } else {

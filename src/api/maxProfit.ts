@@ -5,6 +5,7 @@ export const maxProfit = async (params: MaxProfitInput) => {
     const apiUrl = process.env.REACT_APP_API_URL
     const isVercel = process.env.REACT_APP_IS_VERCEL
 
+    console.log('---isVercel=', isVercel)
     if (!apiUrl) {
         throw new Error('API URL is not specified in env variables')
     }

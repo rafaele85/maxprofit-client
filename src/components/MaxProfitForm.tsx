@@ -57,6 +57,7 @@ export const MaxProfitForm = () => {
             setBestProfit(bestProfit)
         } catch (err) {
             console.error(err)
+            setError('' + err)
         }
         setSubmitting(false)
     }

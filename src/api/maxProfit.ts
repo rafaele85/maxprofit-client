@@ -15,7 +15,7 @@ export const maxProfit = async (params: MaxProfitInput) => {
 
     let error
     try {
-        const response = await fetch(url, { mode: 'no-cors'})
+        const response = await fetch(url)
         if (response.ok) {
             const parsed = await response.json()
             if (parsed.profit) {

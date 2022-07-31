@@ -23,9 +23,17 @@ export const maxProfit = async (params: MaxProfitInput) => {
     } catch (err) {
         throw new Error('ERRRRROR '+err)
     }
+    console.log('----response.statusText', response.statusText, response.status)
+    let error
     if (response) {
-        const error = await response.json()
-        throw new Error(error.message)
+        try {
+            error = await response.json()
+        } catch(err) {
+            throw new Error('ERRRRROR2 '+err)
+        }
     }
-    throw new Error('unknown error')
+    if (!error) {
+        error = 'unknown error'
+    }
+    throw new Error(error)
 }

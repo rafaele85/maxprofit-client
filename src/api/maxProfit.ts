@@ -21,14 +21,12 @@ export const maxProfit = async (params: MaxProfitInput) => {
     try {
         const response = await fetch(url,  { mode: 'no-cors'})
         if (response.ok) {
-            const parsed = await response.json()
-            if (parsed.profit) {
-                let bestProfit: MaxProfitOutput | undefined
-                if (isVercel) {
-                    bestProfit = parseVercelResponse(parsed)
-                } else {
-                    bestProfit = parsed as MaxProfitOutput
-                }
+            if (isVercel) {
+                const parsed = await response.text()
+                const bestProfit = parseVercelResponse(parsed)
+                return bestProfit
+            } else {
+                const bestProfit = await response.json() as MaxProfitOutput
                 return bestProfit
             }
         } else {

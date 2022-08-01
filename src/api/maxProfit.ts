@@ -20,9 +20,12 @@ export const maxProfit = async (params: MaxProfitInput) => {
     let error
     try {
         const response = await fetch(url,  { mode: 'no-cors'})
+        console.log('--1', response)
         if (response.ok) {
+            console.log('--2' , response.statusText)
             if (isVercel) {
                 const parsed = await response.text()
+                console.log('--3')
                 const bestProfit = parseVercelResponse(parsed)
                 return bestProfit
             } else {

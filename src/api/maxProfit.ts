@@ -1,3 +1,4 @@
+import axios from "axios";
 import {MaxProfitInput, MaxProfitOutput} from "../types/maxProfit";
 import {parseVercelResponse} from "../util/parseVercelResponse";
 
@@ -19,21 +20,21 @@ export const maxProfit = async (params: MaxProfitInput) => {
 
     let error
     try {
-        const response = await fetch(url,  { mode: 'no-cors'})
+        const response = await axios.get(url)
         console.log('--1', response)
-        if (response.ok) {
+        if (response.status === 200) {
             console.log('--2' , response.statusText)
             if (isVercel) {
-                const parsed = await response.text()
+                const parsed = await response.data
                 console.log('--3')
                 const bestProfit = parseVercelResponse(parsed)
                 return bestProfit
             } else {
-                const bestProfit = await response.json() as MaxProfitOutput
+                const bestProfit = await response.data as MaxProfitOutput
                 return bestProfit
             }
         } else {
-            const text = await response.text()
+            const text = await response.data
             console.log('---text=', text, response.statusText )
         }
     } catch (err) {

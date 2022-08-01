@@ -95,9 +95,9 @@ export const MaxProfitForm = () => {
                 </Dates>
                 {jsxError}
                 <TextField label={'Buy limit'} value={priceLimit || ''} onChange={handleChangePriceLimit} />
-                {jsxBestProfit}
             </MainForm>
             <SubmitButton onClick={handleSubmit} disabled={isSubmitting} >Submit</SubmitButton>
+            {jsxBestProfit}
         </Root>
     )
 }

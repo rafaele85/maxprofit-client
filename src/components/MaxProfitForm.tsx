@@ -37,7 +37,6 @@ export const MaxProfitForm = () => {
     }
 
     const handleSubmit = async () => {
-        console.log('---handleSubmit', start, end)
         if (!start) {
             setError('Start is required')
             return

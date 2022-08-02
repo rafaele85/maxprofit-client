@@ -24,13 +24,8 @@ export const maxProfit = async (params: MaxProfitInput) => {
             return bestProfit
         } else {
             const text = await response.data
-            console.log('---text=', text, response.statusText )
         }
     } catch (err) {
-        console.log(response)
-        console.dir(response)
-        console.dir(err)
-        console.dir((err as any).response)
         if ((err as any)?.response?.data) {
             error = (err as any).response.data
         } else {

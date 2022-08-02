@@ -11,7 +11,6 @@ export const DatePickerComponent = (props: Props) => {
     const {value, onChange, label} = props
 
     const handleChange = (value: Date | null) => {
-        console.log('---value=', value, typeof value)
         let unixValue: number | undefined = undefined
         if (value) {
             unixValue = convertDateToUnixTime(value)
@@ -20,7 +19,6 @@ export const DatePickerComponent = (props: Props) => {
     }
 
     const date = convertUnixTimeToDate(value)
-    console.log('---date=', date)
 
     return (
         <Root>

@@ -1,12 +1,9 @@
 import axios from "axios";
 import {MaxProfitInput, MaxProfitOutput} from "../types/maxProfit";
-import {parseVercelResponse} from "../util/parseVercelResponse";
 
 export const maxProfit = async (params: MaxProfitInput) => {
     const apiUrl = process.env.REACT_APP_API_URL
-    const isVercel = process.env.REACT_APP_IS_VERCEL
 
-    console.log('---isVercel=', isVercel)
     if (!apiUrl) {
         throw new Error('API URL is not specified in env variables')
     }
@@ -23,14 +20,8 @@ export const maxProfit = async (params: MaxProfitInput) => {
     try {
         response = await axios.get(url)
         if (response.status === 200) {
-            if (isVercel) {
-                const parsed = await response.data
-                const bestProfit = parseVercelResponse(parsed)
-                return bestProfit
-            } else {
-                const bestProfit = await response.data as MaxProfitOutput
-                return bestProfit
-            }
+            const bestProfit = await response.data as MaxProfitOutput
+            return bestProfit
         } else {
             const text = await response.data
             console.log('---text=', text, response.statusText )
@@ -40,7 +31,12 @@ export const maxProfit = async (params: MaxProfitInput) => {
         console.dir(response)
         console.dir(err)
         console.dir((err as any).response)
-        throw new Error('ERRRRROR '+err)
+        if ((err as any)?.response?.data) {
+            error = (err as any).response.data
+        } else {
+            console.error(err)
+            error = '' + err
+        }
     }
     if (!error) {
         error = 'Unknown error'

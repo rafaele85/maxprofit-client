@@ -19,14 +19,12 @@ export const maxProfit = async (params: MaxProfitInput) => {
     const url = `${apiUrl}/maxprofit?${paramsArray.join('&')}`
 
     let error
+    let response
     try {
-        const response = await axios.get(url)
-        console.log('--1', response)
+        response = await axios.get(url)
         if (response.status === 200) {
-            console.log('--2' , response.statusText)
             if (isVercel) {
                 const parsed = await response.data
-                console.log('--3')
                 const bestProfit = parseVercelResponse(parsed)
                 return bestProfit
             } else {
@@ -38,6 +36,10 @@ export const maxProfit = async (params: MaxProfitInput) => {
             console.log('---text=', text, response.statusText )
         }
     } catch (err) {
+        console.log(response)
+        console.dir(response)
+        console.dir(err)
+        console.dir((err as any).response)
         throw new Error('ERRRRROR '+err)
     }
     if (!error) {

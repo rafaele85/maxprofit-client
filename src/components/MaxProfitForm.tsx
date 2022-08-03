@@ -30,7 +30,7 @@ export const MaxProfitForm = () => {
     const handleChangePriceLimit = (e: React.ChangeEvent<HTMLInputElement>) => {
         let value: number | undefined = undefined
         if (e.target.value) {
-            value = parseFloat(e.target.value) || undefined
+            value = parseFloat(e.target.value) ?? undefined
         }
         setPriceLimit(value)
         setError('')

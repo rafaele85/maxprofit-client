@@ -93,7 +93,9 @@ export const MaxProfitForm = () => {
                     />
                 </Dates>
                 {jsxError}
-                <TextField label={'Buy limit'} value={priceLimit || ''} onChange={handleChangePriceLimit} />
+                <Container>
+                    <TextField label={'Buy limit'} value={priceLimit || ''} onChange={handleChangePriceLimit} />
+                </Container>
             </MainForm>
             <SubmitButton onClick={handleSubmit} disabled={isSubmitting} >Submit</SubmitButton>
             {jsxBestProfit}
@@ -149,4 +151,8 @@ const Error = styled.span`
   padding-bottom: 30px;
   width: 100%;
   color: red;
+`
+
+const Container = styled.div`
+  z-index: 0;
 `

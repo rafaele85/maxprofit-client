@@ -31,7 +31,7 @@ export const MaxProfitForm = () => {
         let value: number | undefined = undefined
         if (e.target.value) {
             value = parseFloat(e.target.value)
-            if (value === undefined && value === null || isNaN(value)) {
+            if (value === undefined || value === null || isNaN(value)) {
                 value = undefined
             }
         }
